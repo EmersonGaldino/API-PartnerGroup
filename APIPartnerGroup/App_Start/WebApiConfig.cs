@@ -19,6 +19,8 @@ namespace APIPartnerGroup
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            var formato = GlobalConfiguration.Configuration.Formatters;
+            formato.Remove(formato.XmlFormatter);
         }
     }
 }

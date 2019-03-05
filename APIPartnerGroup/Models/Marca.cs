@@ -7,9 +7,10 @@ namespace APIPartnerGroup.Models
 {
     public class Marca
     {
+
         public int MarcaId { get; set; }
         public string Nome { get; set; }
 
-        
+        public List<Patrimonio> patrimonios { get; set; }
     }
 }

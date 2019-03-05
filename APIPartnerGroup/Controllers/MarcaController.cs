@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace APIPartnerGroup.Controllers
 {
+    
     public class MarcaController : ApiController
     {
         IRepositorio<Marca> repositorioMarca = new RepositorioMarca();
@@ -21,13 +22,18 @@ namespace APIPartnerGroup.Controllers
         // GET api/<controller>/5
         public Marca Get(int id)
         {
-            return repositorioMarca.Selecionar(id);
+            Marca marca = repositorioMarca.Selecionar(id);
+
+            
+            return marca;
         }
 
-        public IEnumerable<Marca> Get(Marca marca)
+        [HttpGet]
+        [Route("api/Marca/{idMarca}/patrimonios")]
+        public IHttpActionResult GetPatrimonios(int idMarca)
         {
-
-            return repositorioMarca.SelecionarPatrimoniosMarca(marca);
+            Marca marca = repositorioMarca.SelecionarDados(idMarca);
+            return Ok(marca);
         }
 
         // POST api/<controller>
@@ -40,6 +46,7 @@ namespace APIPartnerGroup.Controllers
         // PUT api/<controller>/5
         public void Put(int id, [FromBody]Marca marca)
         {
+
             repositorioMarca.Alterar(id,marca);
         }
 

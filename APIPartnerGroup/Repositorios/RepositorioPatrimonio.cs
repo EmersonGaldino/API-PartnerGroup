@@ -92,7 +92,7 @@ namespace APIPartnerGroup.Repositorios
             return patrimonio;
         }
 
-        public List<Patrimonio> SelecionarPatrimoniosMarca(Patrimonio patrimonio)
+        public Patrimonio SelecionarDados(int idMarca)
         {
             throw new NotImplementedException();
         }

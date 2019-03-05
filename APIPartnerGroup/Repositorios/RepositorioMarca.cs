@@ -82,29 +82,32 @@ namespace APIPartnerGroup.Repositorios
             return marcas;
         }
 
-        public List<Marca> SelecionarPatrimoniosMarca(Marca marca)
+        public Marca SelecionarDados(int idMarca)
         {
-            List<Marca> marcas = new List<Marca>();
             DbConnection cn = AcessoDadosADONet.GetConexao();
             DbCommand cmd = AcessoDadosADONet.GetComando(cn);
-            cmd.CommandText = @"SELECT P.NOME, P.DESCRICAO, P.NUMEROTOMBO, M.NOME 
-                                FROM PAT_PATRIMONIO P
-                                INNER JOIN MAR_MARCA M ON P.MARCAID = M.MARCAID
+            cmd.CommandText = @"SELECT M.MARCAID, M.NOME MARCA, P.NOME PATRIMONIOS FROM MAR_MARCA M
+                                RIGHT JOIN PAT_PATRIMONIO P ON M.MARCAID = P.MARCAID
                                 WHERE M.MARCAID = @MARCAID";
-            cmd.Parameters.Add(new SqlParameter("@MARCAID", marca.MarcaId));
+            cmd.Parameters.Add(new SqlParameter("@MARCAID", idMarca));
             DbDataReader leitor = AcessoDadosADONet.GetReader(cmd);
-
-
-
-            while (leitor.Read())
+            Marca marcas = new Marca();
+            Patrimonio patrimonio = new Patrimonio();
+            if (patrimonio.MarcaId == idMarca)
             {
-                marcas.Add(new Marca()
-                {
-                    MarcaId = Convert.ToInt32(leitor["MARCAID"]),
-                    Nome = leitor["NOME"].ToString()
-                    
-                });
+                marcas.patrimonios.Add(new Patrimonio { Nome = patrimonio.Nome });
             }
+            while(leitor.Read())
+            {
+
+                marcas.MarcaId = Convert.ToInt32(leitor["MARCAID"]);
+                marcas.Nome = leitor["MARCA"].ToString();
+
+                
+                
+
+            }
+            idMarca = marcas.MarcaId;
             leitor.Close();
             return marcas;
         }

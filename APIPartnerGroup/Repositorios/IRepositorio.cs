@@ -14,6 +14,7 @@ namespace APIPartnerGroup.Repositorios
         void Excluir(int id);
         List<TTipo> SelecionarTodos();
         TTipo Selecionar(int id);
-        List<TTipo> SelecionarPatrimoniosMarca(TTipo tipo);
+        TTipo SelecionarDados(int idMarca);
+        
     }
 }
